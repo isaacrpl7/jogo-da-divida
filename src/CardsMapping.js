@@ -65,11 +65,11 @@ export function getCard(card_id) {
             name: 'Mão inimiga',
             description: 'Dobre a quantia que precisa pagar.'
         },
-        16: { // Verificar como implementar
+        16: {
             name: 'Mídia',
             description: 'Impede de usar alguma ação.'
         },
-        17: { // Verificar como implementar
+        17: {
             name: 'Cada cachorro que lamba sua caceta',
             description: 'Impede de usar alguma ação.'
         },

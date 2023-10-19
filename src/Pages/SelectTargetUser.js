@@ -1,4 +1,8 @@
-function SelectTargetUser({user, roomUsers, cardToTransfer, connection, setCardToTransfer, setSelectTargetUser, myCards, setMyHand}) {
+import { useContext } from "react"
+import { GameContext } from "../App"
+
+function SelectTargetUser({roomUsers, cardToTransfer, setCardToTransfer, setSelectTargetUser, setMyHand}) {
+    const {user, connection, myCards} = useContext(GameContext)
 
     function handleCardTransfer(target){
         const target_user = target

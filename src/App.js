@@ -1,9 +1,11 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, createContext } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import './App.css';
 import SetUsername from './Pages/SetUsername';
 import InitialPage from './Pages/InitialPage';
 import Game from './Game';
+
+export const GameContext = createContext()
 
 function App() {
     const params = useParams()
@@ -84,9 +86,16 @@ function App() {
 
             if(message.protocol === "ACTION_STACK_REMOVE") {
                 // eslint-disable-next-line
-                let card_action = actionsStack.pop()
-                setActionsStack([...actionsStack])
-                actionStackRef.current = [...actionsStack]
+                let card_action = actionStackRef.current.pop()
+                setActionsStack([...actionStackRef.current])
+            }
+
+            if(message.protocol === "CARD_ACTION") {
+                if(message.action === "BLOCK_ACTIONS"){ // Carta de bloquear outra ação foi executada
+                    actionStackRef.current.pop()
+                    actionStackRef.current.pop()
+                    setActionsStack([...actionStackRef.current])
+                }
             }
 
             console.log(message)
@@ -115,27 +124,24 @@ function App() {
         <div>
             {userReady ? 
                 (params.roomId ? 
-                    <Game 
-                        user={user}
-                        startButton={startButton}
-                        room={params.roomId} 
-                        connection={connection}
-                        roomUsers={roomUsers}
-                        myHand={myHand}
-                        setMyHand={setMyHand}
-                        myTurn={myTurn}
-                        theirTurn={theirTurn}
-                        takenCard={takenCard}
-                        setTakenCard={setTakenCard}
-                        whoTookCard={whoTookCard}
-                        setWhoTookCard={setWhoTookCard}
-                        gameBegun={gameBegun}
-                        roomPlayers={roomPlayers}
-                        myCards={myCards}
-                        actionsStack={actionsStack}
-                        actionStackRef={actionStackRef}
-                        setActionsStack={setActionsStack}
-                    /> 
+                    <GameContext.Provider value={{
+                        user, room: params.roomId, connection, roomPlayers, myCards, actionStackRef
+                    }}>
+                        <Game 
+                            startButton={startButton}
+                            myHand={myHand}
+                            setMyHand={setMyHand}
+                            myTurn={myTurn}
+                            theirTurn={theirTurn}
+                            takenCard={takenCard}
+                            setTakenCard={setTakenCard}
+                            whoTookCard={whoTookCard}
+                            setWhoTookCard={setWhoTookCard}
+                            gameBegun={gameBegun}
+                            roomUsers={roomUsers}
+                            actionsStack={actionsStack}
+                        /> 
+                    </GameContext.Provider>
                 : 
                     <InitialPage criarSala={criarSala} /> ) 
             :

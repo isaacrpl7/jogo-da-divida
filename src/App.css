@@ -27,6 +27,20 @@
 .App-link {
   color: #61dafb;
 }
+li {
+  list-style-type: none;
+}
+.deathButton {
+  background-color: #d95e5e61;
+}
+button {
+  background-color: #282c34;
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}
 
 @keyframes App-logo-spin {
   from {

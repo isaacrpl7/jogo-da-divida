@@ -4,6 +4,7 @@ import './App.css';
 import SetUsername from './Pages/SetUsername';
 import InitialPage from './Pages/InitialPage';
 import Game from './Game';
+import { getCard, isBadObstacleCard, isBonusObstacleCard } from './CardsMapping';
 
 export const GameContext = createContext()
 
@@ -29,6 +30,8 @@ function App() {
     const [startButton, setStartButton] = useState(false)
     const [actionsStack, setActionsStack] = useState([])
     const actionStackRef = useRef([])
+    const myCurrentObstacle = useRef(null)
+    const [noNeedToDrawCard, setNoNeedToDrawCard] = useState(false)
 
     async function conectar() {
         connection.current = new WebSocket(`ws://${process.env.REACT_APP_API_ADDRESS}?user=${user.current}`, 'json')
@@ -70,8 +73,12 @@ function App() {
             }
 
             if(message.protocol === "YOU_TOOK_CARD") {
-                myCards.current = [...myCards.current, message.card]
-                setMyHand(myCards.current)
+                if(isBadObstacleCard(message.card) || isBonusObstacleCard(message.card)){
+                    myCurrentObstacle.current = message.card
+                } else {
+                    myCards.current = [...myCards.current, message.card]
+                    setMyHand(myCards.current)
+                }
             }
 
             if(message.protocol === "PLAYER_TOOK_CARD") {
@@ -85,8 +92,11 @@ function App() {
             }
 
             if(message.protocol === "ACTION_STACK_REMOVE") {
-                // eslint-disable-next-line
-                let card_action = actionStackRef.current.pop()
+                if (message.executeActionsBefore) {
+                    actionStackRef.current.splice(actionStackRef.current.length-2, 1)
+                } else {
+                    actionStackRef.current.pop()
+                }
                 setActionsStack([...actionStackRef.current])
             }
 
@@ -95,6 +105,18 @@ function App() {
                     actionStackRef.current.pop()
                     actionStackRef.current.pop()
                     setActionsStack([...actionStackRef.current])
+                }
+
+                if(message.action === "NEXT_3_CARDS") { // Carta de ver as próximas 3 cartas do baralho
+                    const next_cards = message.cards.reverse()
+                    alert(`As próximas 3 cartas são, nessa ordem:\n
+                    ${getCard(next_cards[0]).name} (${getCard(next_cards[0]).description});\n
+                    ${getCard(next_cards[1]).name} (${getCard(next_cards[1]).description});\n
+                    ${getCard(next_cards[2]).name};(${getCard(next_cards[1]).description})`)
+                }
+
+                if(message.action === "NO_NEED_TO_DRAW_CARD") { // Carta de não ser obrigado a puxar carta
+                    setNoNeedToDrawCard(true)
                 }
             }
 
@@ -125,7 +147,7 @@ function App() {
             {userReady ? 
                 (params.roomId ? 
                     <GameContext.Provider value={{
-                        user, room: params.roomId, connection, roomPlayers, myCards, actionStackRef
+                        user, room: params.roomId, connection, roomPlayers, myCards, actionStackRef, myCurrentObstacle
                     }}>
                         <Game 
                             startButton={startButton}
@@ -134,7 +156,8 @@ function App() {
                             myTurn={myTurn}
                             theirTurn={theirTurn}
                             takenCard={takenCard}
-                            setTakenCard={setTakenCard}
+                            noNeedToDrawCard={noNeedToDrawCard}
+                            setNoNeedToDrawCard={setNoNeedToDrawCard}
                             whoTookCard={whoTookCard}
                             setWhoTookCard={setWhoTookCard}
                             gameBegun={gameBegun}

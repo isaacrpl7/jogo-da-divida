@@ -1,11 +1,11 @@
 export function getCard(card_id) {
     const cards = {
         // CARTAS DE AÇÃO
-        0: {
+        0: {// Verificar como implementar
             name: 'Político Amigo',
             description: 'Impede que você seja preso. Não pode ser bloqueado.'
         },
-        1: {
+        1: {// Verificar como implementar
             name: 'Devedora Antiga',
             description: 'Impede que você seja morto. Não pode ser bloqueado.'
         },
@@ -17,11 +17,11 @@ export function getCard(card_id) {
             name: 'Poupança',
             description: 'Use a carta para ganhar 2000.'
         },
-        4: {// Verificar como implementar
+        4: {
             name: 'Informação Privilegiada',
             description: 'Veja as próximas 3 cartas do bolo e depois devolva-as na mesma posição.'
         },
-        5: {// Verificar como implementar
+        5: {
             name: 'Informação Privilegiada',
             description: 'Veja as próximas 3 cartas do bolo e depois devolva-as na mesma posição.'
         },
@@ -73,23 +73,23 @@ export function getCard(card_id) {
             name: 'Cada cachorro que lamba sua caceta',
             description: 'Impede de usar alguma ação.'
         },
-        18: { // Verificar como implementar
+        18: {
             name: 'O problema não é meu',
             description: 'Repassa o obstáculo para outro jogador.'
         },
-        19: {// Verificar como implementar
+        19: {
             name: 'O problema não é meu',
             description: 'Repassa o obstáculo para outro jogador.'
         },
-        20: {// Verificar como implementar
+        20: {
             name: 'Tô fora!',
             description: 'Encerre seu turno sem precisar puxar carta.'
         },
-        21: {// Verificar como implementar
+        21: {
             name: 'Tô fora!',
             description: 'Encerre seu turno sem precisar puxar carta.'
         },
-        22: {// Verificar como implementar
+        22: {
             name: 'Dobro e passo pro próximo',
             description: 'Pule seu turno e faça o próximo jogador ter 2 turnos.'
         },
@@ -301,7 +301,7 @@ export function getCard(card_id) {
             name: 'X9',
             description: 'Todos devem pagar 1000 ao banco.'
         },
-        74: {
+        74: {// VERIFICAR COMO IMPLEMENTAR
             name: 'Meu marido tem dois empregos',
             description: 'Você agora pode ter mais de um emprego (perca ao alcançar classe A).'
         },
@@ -337,45 +337,53 @@ export function getCard(card_id) {
             name: 'Homem de palavra',
             description: 'Caso não esteja devendo nada a ninguém, ganhe 5000.'
         },
+        83: {// Verificar como implementar
+            name: '100 reais ou presente misterioso?',
+            description: 'Puxe 100 reais, ou puxe um novo obstáculo.'
+        },
+        84: {// Verificar como implementar
+            name: '100 reais ou presente misterioso?',
+            description: 'Puxe 100 reais, ou puxe um novo obstáculo.'
+        },
 
-        // CARTAS DE EMPREGO
-        83: {
+        // CARTAS DE EMPREGO (VERIFICAR COMO IMPLEMENTAR)
+        85: {
             name: 'Médico',
             description: 'Salário de 10000'
         },
-        84: {
+        86: {
             name: 'Advogado',
             description: 'Salário de 7000'
         },
-        85: {
+        87: {
             name: 'Servente de pedreiro',
             description: 'Salário de 1000'
         },
-        86: {
+        88: {
             name: 'Desenvolvedor de Software',
             description: 'Salário de 7000'
         },
-        87: {
+        89: {
             name: 'Atendente de FastFood',
             description: 'Salário de 1500'
         },
-        88: {
+        90: {
             name: 'Engenheiro',
             description: 'Salário de 5000'
         },
-        89: {
+        91: {
             name: 'Administrador',
             description: 'Salário de 3000'
         },
-        90: {
+        92: {
             name: 'Professor',
             description: 'Salário de 3000'
         },
-        91: {
+        93: {
             name: 'Streamer',
             description: 'Role o dado para saber seu salário: 1-2 = 1000, 3-4 = 3000, 5-6 = 10000'
         },
-        92: {
+        94: {
             name: 'Empreendedor',
             description: 'Role o dado para saber seu salário: 1-3: 5000, 4-5 = 8000, 6 = 12000'
         },
@@ -395,11 +403,11 @@ export function isBadObstacleCard(card_id) {
 }
 
 export function isBonusObstacleCard(card_id) {
-    if(card_id >= 64 && card_id <= 82) return true
+    if(card_id >= 64 && card_id <= 84) return true
     else return false
 }
 
 export function isJobCard(card_id) {
-    if(card_id >= 83 && card_id <= 92) return true
+    if(card_id >= 85 && card_id <= 94) return true
     else return false
 }

@@ -5,12 +5,12 @@ import CardTaken from "./GameTableComponents/CardTaken";
 import MyCards from "./GameTableComponents/MyCards";
 import { GameContext } from "./App";
 
-function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, takenCard, whoTookCard, myHand, setMyHand, actionsStack}) {
+function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, noNeedToDrawCard, setNoNeedToDrawCard, takenCard, whoTookCard, myHand, setMyHand, actionsStack}) {
 
     const [selectTargetUser, setSelectTargetUser] = useState(false)
     const [cardToTransfer, setCardToTransfer] = useState(null)
     const [death, setDeath] = useState(false)
-    const {room, connection} = useContext(GameContext)
+    const {room, connection, myCurrentObstacle} = useContext(GameContext)
 
     async function handleStart() {
         await fetch(`${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_API_ADDRESS}/turno/${room}`);
@@ -20,6 +20,8 @@ function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, takenCard, 
         if (actionsStack.length){
             alert('Faça suas ações antes de passar seu turno!')
         } else {
+            setNoNeedToDrawCard(false)
+            myCurrentObstacle.current = null
             connection.current.send(JSON.stringify({protocol: 'NEXT_TURN'}))
         }
     }
@@ -29,8 +31,13 @@ function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, takenCard, 
     }
 
     function handleGameover(){
-        connection.current.send(JSON.stringify({protocol: 'GAMEOVER'}))
-        setDeath(true)
+        if (actionsStack.length){
+            alert('Faça suas ações antes de declarar morte!')
+        } else {
+            setSelectTargetUser(false)
+            connection.current.send(JSON.stringify({protocol: 'GAMEOVER'}))
+            setDeath(true)
+        }
     }
 
     return (
@@ -39,7 +46,7 @@ function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, takenCard, 
 
                 { gameBegun ?
                     <>
-                        <CardTaken takenCard={takenCard} whoTookCard={whoTookCard} />
+                        {!noNeedToDrawCard && <CardTaken takenCard={takenCard} whoTookCard={whoTookCard} />}
                         {myTurn ? 
                             <>
                                 <p>O turno é seu!</p>
@@ -53,6 +60,7 @@ function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, takenCard, 
 
                         {actionsStack.length !== 0 && <ActionStack 
                             actionsStack={actionsStack} 
+                            roomUsers={roomUsers}
                             // setActionsStack={setActionsStack} 
                             // actionStackRef={actionStackRef} 
                             myTurn={myTurn} 
@@ -65,6 +73,7 @@ function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, takenCard, 
                             setCardToTransfer={setCardToTransfer} 
                             setSelectTargetUser={setSelectTargetUser}
                             setMyHand={setMyHand}
+                            isTransferObstacle={false}
                         />}
                         {death ? <h1>VOCÊ MORREU!</h1> : <button className="deathButton" onClick={handleGameover}>Morri ou fui preso!</button>}
 

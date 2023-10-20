@@ -337,11 +337,11 @@ export function getCard(card_id) {
             name: 'Homem de palavra',
             description: 'Caso não esteja devendo nada a ninguém, ganhe 5000.'
         },
-        83: {// Verificar como implementar
+        83: {
             name: '100 reais ou presente misterioso?',
             description: 'Puxe 100 reais, ou puxe um novo obstáculo.'
         },
-        84: {// Verificar como implementar
+        84: {
             name: '100 reais ou presente misterioso?',
             description: 'Puxe 100 reais, ou puxe um novo obstáculo.'
         },

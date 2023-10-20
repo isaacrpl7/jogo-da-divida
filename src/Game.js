@@ -5,7 +5,7 @@ import CardTaken from "./GameTableComponents/CardTaken";
 import MyCards from "./GameTableComponents/MyCards";
 import { GameContext } from "./App";
 
-function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, noNeedToDrawCard, setNoNeedToDrawCard, takenCard, whoTookCard, myHand, setMyHand, actionsStack}) {
+function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, noNeedToDrawCard, setNoNeedToDrawCard, takenCard, whoTookCard, myHand, setMyHand, actionsStack, setMysteriousPresent, mysteriousPresent}) {
 
     const [selectTargetUser, setSelectTargetUser] = useState(false)
     const [cardToTransfer, setCardToTransfer] = useState(null)
@@ -34,6 +34,7 @@ function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, noNeedToDra
         if (actionsStack.length){
             alert('Faça suas ações antes de declarar morte!')
         } else {
+            setMysteriousPresent(false)
             setSelectTargetUser(false)
             connection.current.send(JSON.stringify({protocol: 'GAMEOVER'}))
             setDeath(true)
@@ -46,11 +47,17 @@ function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, noNeedToDra
 
                 { gameBegun ?
                     <>
-                        {!noNeedToDrawCard && <CardTaken takenCard={takenCard} whoTookCard={whoTookCard} />}
+                        <CardTaken 
+                            takenCard={takenCard}
+                            whoTookCard={whoTookCard} 
+                            setMysteriousPresent={setMysteriousPresent} 
+                            mysteriousPresent={mysteriousPresent} 
+                            handleTakeCard={handleTakeCard} 
+                        />
                         {myTurn ? 
                             <>
                                 <p>O turno é seu!</p>
-                                {takenCard ? <button onClick={handleNextTurn}>Proximo turno</button> : <button onClick={handleTakeCard}>Puxar carta</button>}
+                                {takenCard !== null || noNeedToDrawCard ? <button onClick={handleNextTurn}>Proximo turno</button> : <button onClick={handleTakeCard}>Puxar carta</button>}
                             </>
                         :
                             <>
@@ -83,6 +90,8 @@ function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, noNeedToDra
                             setSelectTargetUser={setSelectTargetUser} 
                             setCardToTransfer={setCardToTransfer}
                             death={death}
+                            myTurn={myTurn}
+                            takenCard={takenCard}
                         />
                     </> 
                 :

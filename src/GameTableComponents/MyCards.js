@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { getCard, isActionCard } from "../CardsMapping"
 import { GameContext } from "../App"
 
-function MyCards({setSelectTargetUser, setCardToTransfer, myHand, setMyHand, death}) {
+function MyCards({setSelectTargetUser, setCardToTransfer, myHand, setMyHand, death, takenCard}) {
 
     const {connection, myCards, actionStackRef, myCurrentObstacle} = useContext(GameContext)
 
@@ -27,14 +27,20 @@ function MyCards({setSelectTargetUser, setCardToTransfer, myHand, setMyHand, dea
                 return
             }
 
-            if(!myCurrentObstacle.current) {
+            if(myCurrentObstacle.current === null) {
                 alert('Puxe um obstáculo para poder usar essa carta!')
                 return
             }
         }
+        if(card_id === 22) { // Se for carta de pular o turno e passar pro próximo ter 2 turnos (DOBRO E PASSO PRO PROX)
+            if(takenCard !== null) {
+                alert('Você só pode usar essa carta antes de puxar uma carta!')
+                return
+            }
+        }
         if(card_id === 20 || card_id === 21){ // Se for carta de "Tô fora"
-            if(myCurrentObstacle.current) {
-                alert('Você só pode usar essa carta antes de puxar um obstáculo!')
+            if(takenCard !== null) {
+                alert('Você só pode usar essa carta antes de puxar uma carta!')
                 return
             }
         }

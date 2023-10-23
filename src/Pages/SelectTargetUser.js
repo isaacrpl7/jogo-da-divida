@@ -10,6 +10,7 @@ function SelectTargetUser({roomUsers, cardToTransfer, setCardToTransfer, setSele
         if(isTransferObstacle) {
             myCurrentObstacle.current = null
             connection.current.send(JSON.stringify({protocol: "ACTION_DONE", target_user: target_user, obstacle: cardToTransfer, card_id: "PASS_OBSTACLE"}))
+            setSelectTargetUser(false)
         } else {
             connection.current.send(JSON.stringify({protocol: "TRANSFER_CARD", target_user: target_user, card: cardToTransfer}))
     

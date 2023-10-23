@@ -4,22 +4,31 @@ import ActionStack from "./GameTableComponents/ActionStack";
 import CardTaken from "./GameTableComponents/CardTaken";
 import MyCards from "./GameTableComponents/MyCards";
 import { GameContext } from "./App";
+import Pyramid from "./GameTableComponents/Pyramid";
 
-function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, noNeedToDrawCard, setNoNeedToDrawCard, takenCard, whoTookCard, myHand, setMyHand, actionsStack, setMysteriousPresent, mysteriousPresent}) {
+function Game({startButton, gameBegun, roomUsers, myTurn,
+    theirTurn, noNeedToDrawCard, setNoNeedToDrawCard,
+    takenCard, whoTookCard, myHand, setMyHand, actionsStack,
+    setMysteriousPresent, mysteriousPresent, pyramidPlayers, setPyramidPlayers,
+    transferPyramidVisible, setTransferPyramidVisible}) {
 
     const [selectTargetUser, setSelectTargetUser] = useState(false)
     const [cardToTransfer, setCardToTransfer] = useState(null)
     const [death, setDeath] = useState(false)
-    const {room, connection, myCurrentObstacle} = useContext(GameContext)
+    const {room, connection, myCurrentObstacle, alivePlayers} = useContext(GameContext)
 
     async function handleStart() {
         await fetch(`${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_API_ADDRESS}/turno/${room}`);
     }
 
     function handleNextTurn() {
-        if (actionsStack.length){
+        if (actionsStack.length || transferPyramidVisible){
             alert('Faça suas ações antes de passar seu turno!')
         } else {
+            // Se for uma carta de esquema de pirâmide
+            if(myCurrentObstacle.current >= 26 && myCurrentObstacle.current <= 30 ){
+                connection.current.send(JSON.stringify({protocol: 'OBSTACLE_ACTION', card_id: myCurrentObstacle.current}))
+            }
             setNoNeedToDrawCard(false)
             myCurrentObstacle.current = null
             connection.current.send(JSON.stringify({protocol: 'NEXT_TURN'}))
@@ -64,6 +73,10 @@ function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, noNeedToDra
                                 <p>O turno é de {theirTurn}</p>
                             </>
                         }
+                        <Pyramid
+                            pyramidPlayers={pyramidPlayers}
+                            setPyramidPlayers={setPyramidPlayers}
+                        />
 
                         {actionsStack.length !== 0 && <ActionStack 
                             actionsStack={actionsStack} 
@@ -72,6 +85,13 @@ function Game({startButton, gameBegun, roomUsers, myTurn, theirTurn, noNeedToDra
                             // actionStackRef={actionStackRef} 
                             myTurn={myTurn} 
                             theirTurn={theirTurn}
+                        />}
+
+                        {transferPyramidVisible && <SelectTargetUser
+                            setSelectTargetUser={setTransferPyramidVisible}
+                            isTransferObstacle={true}
+                            cardToTransfer={myCurrentObstacle.current}
+                            roomUsers={alivePlayers.current.filter(alivePlayer => !pyramidPlayers.includes(alivePlayer))}
                         />}
 
                         {selectTargetUser && <SelectTargetUser 

@@ -20,6 +20,7 @@ function App() {
     /** GAME PAGE */
     const [roomUsers, setRoomUsers] = useState([])
     const roomPlayers = useRef([])
+    const alivePlayers = useRef([])
     const myCards = useRef([])
     const [myTurn, setMyTurn] = useState(false)
     const myTurnRef = useRef(false)
@@ -34,6 +35,9 @@ function App() {
     const myCurrentObstacle = useRef(null)
     const [noNeedToDrawCard, setNoNeedToDrawCard] = useState(false)
     const [mysteriousPresent, setMysteriousPresent] = useState(false)
+    const pyramidPlayersRef = useRef([])
+    const [pyramidPlayers, setPyramidPlayers] = useState([])
+    const [transferPyramidVisible, setTransferPyramidVisible] = useState(false)
 
     async function conectar() {
         connection.current = new WebSocket(`ws://${process.env.REACT_APP_API_ADDRESS}?user=${user.current}`, 'json')
@@ -49,7 +53,17 @@ function App() {
 
             if(message.protocol === "USER_ENTERED" || message.protocol === "USER_LEFT") {
                 roomPlayers.current = message.users
+                alivePlayers.current = message.users
                 setRoomUsers(roomPlayers.current)
+            }
+
+            if(message.protocol === "GAMEOVER"){
+                const indexOfDeadPlayer = alivePlayers.current.indexOf(message.player)
+                alivePlayers.current.splice(indexOfDeadPlayer, 1)
+
+                const indexOfDeadPlayerInPyramid = pyramidPlayersRef.current.indexOf(message.player)
+                pyramidPlayersRef.current.splice(indexOfDeadPlayerInPyramid, 1)
+                setPyramidPlayers(pyramidPlayersRef.current)
             }
 
             if(message.protocol === "INITIAL_CARDS") {
@@ -79,12 +93,19 @@ function App() {
             if(message.protocol === "YOU_TOOK_CARD") {
                 if(isBadObstacleCard(message.card) || isBonusObstacleCard(message.card)){
                     myCurrentObstacle.current = message.card
+
                     // Se for carta do presente misterioso
                     if(myCurrentObstacle.current === 83 || myCurrentObstacle.current === 84) {
                         setMysteriousPresent(true)
                     } else {
                         setMysteriousPresent(false)
                     }
+
+                    // Se for carta de esquema de pirâmide, mas já tenho esquema de pirâmide
+                    if(myCurrentObstacle.current >= 26 && myCurrentObstacle.current <= 30 && pyramidPlayersRef.current.includes(user.current)) {
+                        setTransferPyramidVisible(true)
+                    }
+
                 } else {
                     myCards.current = [...myCards.current, message.card]
                     setMyHand(myCards.current)
@@ -158,6 +179,25 @@ function App() {
                 }
             }
 
+            if(message.protocol === "OBSTACLE_ACTION") {
+                if(message.action === "ADD_PYRAMID") {
+                    pyramidPlayersRef.current.push(message.player)
+                    setPyramidPlayers(pyramidPlayersRef.current)
+
+                    if(pyramidPlayersRef.current.length === alivePlayers.current.length){
+                        alert("A pirâmide chegou no máximo de jogadores, portanto será dissolvida!")
+                        pyramidPlayersRef.current = []
+                        setPyramidPlayers(pyramidPlayersRef.current)
+                        connection.current.send(JSON.stringify({protocol: "PYRAMID_DISSOLVE"}))
+                    }
+                }
+            }
+
+            if(message.protocol === "PYRAMID_DISSOLVE"){
+                pyramidPlayersRef.current = []
+                setPyramidPlayers(pyramidPlayersRef.current)
+            }
+
             console.log(message)
         }
         connection.current.onopen = () => {
@@ -185,7 +225,7 @@ function App() {
             {userReady ? 
                 (params.roomId ? 
                     <GameContext.Provider value={{
-                        user, room: params.roomId, connection, roomPlayers, myCards, actionStackRef, myCurrentObstacle, myTurnRef
+                        user, room: params.roomId, connection, roomPlayers, myCards, actionStackRef, myCurrentObstacle, myTurnRef, pyramidPlayersRef, alivePlayers
                     }}>
                         <Game 
                             startButton={startButton}
@@ -203,6 +243,10 @@ function App() {
                             actionsStack={actionsStack}
                             mysteriousPresent={mysteriousPresent}
                             setMysteriousPresent={setMysteriousPresent}
+                            pyramidPlayers={pyramidPlayers}
+                            setPyramidPlayers={setPyramidPlayers}
+                            transferPyramidVisible={transferPyramidVisible}
+                            setTransferPyramidVisible={setTransferPyramidVisible}
                         /> 
                     </GameContext.Provider>
                 : 

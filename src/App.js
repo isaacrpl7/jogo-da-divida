@@ -221,7 +221,7 @@ function App() {
     }
 
     return (
-        <div>
+        <div className="App">
             {userReady ? 
                 (params.roomId ? 
                     <GameContext.Provider value={{

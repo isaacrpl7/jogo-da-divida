@@ -24,11 +24,13 @@ function SelectTargetUser({roomUsers, cardToTransfer, setCardToTransfer, setSele
     }
 
     return (
-        <div>
-            <h2>Selecione o usuário para transferir</h2>
+        <div className="select-user">
+            <h2 style={{color: 'black'}}>Selecione o usuário para transferir</h2>
+            <p style={{position: 'absolute', top: '1rem', right: '1rem', margin: 0, color: 'black', cursor: 'pointer'}} onClick={() => {setSelectTargetUser(false)}}>X</p>
             {roomUsers.map((player) => {
                 return player !== user.current && <li key={`${player}_transfer`}><button 
                 onClick={() => {handleCardTransfer(player)}} 
+                style={{border: '1px solid black'}}
                 >{player}</button></li>
             })}
         </div>

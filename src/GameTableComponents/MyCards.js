@@ -50,30 +50,36 @@ function MyCards({setSelectTargetUser, setCardToTransfer, myHand, setMyHand, dea
     }
 
     return (
-        <div style={{border: '1px solid white', width: '90%'}}>
+        <div className="cards-section">
             <p>Suas cartas são:</p>
-            {myHand.map((card_id) => {
-                const card_obj = getCard(card_id)
-                const is_action = isActionCard(card_id)
-                return (
-                    <li key={card_id}>
-                        <p style={{fontSize: '1.5rem'}}>{card_obj.name}</p>
-                        <p style={{fontSize: '1rem'}}>{card_obj.description}</p>
-                        {!death &&
-                            <>
-                                <button 
-                                    onClick={() => {
-                                        setSelectTargetUser(true)
-                                        setCardToTransfer(card_id)
-                                    }}
-                                >Transferir carta</button>
-                                <button onClick={() => {handleDiscard(card_id)}}>Descartar carta</button>
-                                {is_action && <button onClick={() => {handleUseCard(card_id)}}>Usar carta</button>}
-                            </>
-                        }
-                    </li>
-                )
-            })}
+            <div className="cards-container">
+                <div className="cards-scroll">
+                    {myHand.map((card_id) => {
+                        const card_obj = getCard(card_id)
+                        const is_action = isActionCard(card_id)
+                        return (
+                            <div className="card">
+                                <li className="card-list-item" key={card_id}>
+                                    <p style={{fontSize: '1.5rem', color: '#b4ffeb'}}>{card_obj.name}</p>
+                                    <p style={{fontSize: '1rem'}}>{card_obj.description}</p>
+                                    {!death &&
+                                        <div className="cards-button-section">
+                                            {is_action && <button onClick={() => {handleUseCard(card_id)}}>Usar carta</button>}
+                                            <button 
+                                                onClick={() => {
+                                                    setSelectTargetUser(true)
+                                                    setCardToTransfer(card_id)
+                                                }}
+                                            >Transferir carta</button>
+                                            <button onClick={() => {handleDiscard(card_id)}}>Descartar carta</button>
+                                        </div>
+                                    }
+                                </li>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
         </div>
     )
 }

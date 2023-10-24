@@ -104,7 +104,7 @@ function Game({startButton, gameBegun, roomUsers, myTurn,
                         />}
                         {death ? <h1>VOCÊ MORREU!</h1> : <button className="deathButton" onClick={handleGameover}>Morri ou fui preso!</button>}
 
-                        <MyCards 
+                        <MyCards
                             myHand={myHand} 
                             setMyHand={setMyHand}
                             setSelectTargetUser={setSelectTargetUser} 

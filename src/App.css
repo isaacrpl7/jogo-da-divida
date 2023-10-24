@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color: #4b6d66;
+  font-family: Nunito;
 }
 
 .App-logo {
@@ -14,7 +16,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -31,15 +32,106 @@ li {
   list-style-type: none;
 }
 .deathButton {
-  background-color: #d95e5e61;
+  background-color: #b30e0eba;
+  color: white;
 }
 button {
-  background-color: #282c34;
-  color: white;
+  font-family: Nunito;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
   border: 1px solid white;
   padding: 0.5rem;
   margin: 0.5rem;
   cursor: pointer;
+  box-shadow: 6px 6px 1px 1px #000000;
+}
+
+input {
+  border: 2px solid #a7a7a7;
+  height: 3rem;
+  width: 13rem;
+  border-radius: 5px;
+  color: white;
+  background-color: #79797978;
+  font-family: Nunito;
+  font-size: 30px;
+  outline: white;
+}
+
+input:focus {
+  background-color: #7979791c;
+  border: 2px solid white;
+}
+
+.nickname-chooser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid white;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: #30454b;
+  box-shadow: 0px 0px 0px 5px #144533;
+}
+
+.nickname-chooser button {
+  margin-top: 2rem;
+  font-size: 20px;
+  width: 15rem;
+}
+
+.nickname-chooser button:hover {
+  background-color: #c3e8d0;
+}
+
+.cards-section {
+  border: 6px solid #7b736f;
+  max-height: 75vh;
+  margin: 1rem;
+  overflow-x: scroll;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 0px 7px black;
+  background-color: #5f5b59;
+}
+
+.cards-container {
+  display: flex;
+  overflow-x: scroll;
+  max-width: 90vw;
+  max-height: 70vh;
+}
+
+.cards-scroll {
+  display: flex;
+  height: 40vh;
+  border-top: 1px solid black;
+}
+
+.card {
+  width: 20rem;
+  padding: 1rem;
+  border-left: 1px solid black;
+}
+
+.card-list-item {
+  height: 90%;
+  position: relative;
+}
+
+.cards-button-section {
+  bottom: 0px;
+  position: absolute;
+}
+
+.select-user {
+  background-color: #f0fdffe0;
+  position: absolute;
+  z-index: 1;
+  padding: 1rem;
+  width: 80vw;
+  border-radius: 0.5rem;
+  box-shadow: 2px 2px 1px 3px black;
 }
 
 @keyframes App-logo-spin {

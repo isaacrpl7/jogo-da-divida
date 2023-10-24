@@ -15,12 +15,12 @@ function SetUsername({user, conectar, setUserReady}) {
     }
     
     return (
-        <div className="App">
-            <header className="App-header">
-                <p>Usuário:</p>
+        <div className="App-header">
+            <div className="nickname-chooser">
+                <p>Escolha um nome de usuário</p>
                 <input value={localUser} onChange={handleType} type="text" />
-                <button onClick={click}>Pronto!</button>
-            </header>
+                <button onClick={click}>PRONTO</button>
+            </div>
         </div>
     );
 }

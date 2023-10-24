@@ -28,7 +28,7 @@ function ActionStack({actionsStack, myTurn, theirTurn, roomUsers, myCurrentObsta
     }
 
     return (
-        <div>
+        <div className="actions-stack">
             {selectTargetUser && <SelectTargetUser
                 setSelectTargetUser={setSelectTargetUser}
                 isTransferObstacle={true}
@@ -36,17 +36,21 @@ function ActionStack({actionsStack, myTurn, theirTurn, roomUsers, myCurrentObsta
                 cardToTransfer={cardToTransfer}
                 roomUsers={roomUsers}
             />}
-            {myTurn ? <h4>Sua pilha de ações</h4> : <h4>Pilha de ações de {theirTurn}</h4>}
-            {actionsStack.map((card_id) => {
-                const card = getCard(card_id)
+            {myTurn ? <h4 style={{color: '#b4ffeb'}}>Sua pilha de ações</h4> : <h4 style={{color: '#b4ffeb'}}>Pilha de ações de {theirTurn}</h4>}
+            <div className="actions-stack-container">
+                <div className="actions-stack-scroll">
+                    {actionsStack.map((card_id) => {
+                        const card = getCard(card_id)
 
-                return (
-                    <div key={card_id}>
-                        <p style={{fontSize: '1.5rem'}}>{card.name}</p>
-                        <p style={{fontSize: '1rem'}}>{card.description}</p>
-                    </div>
-                )
-            })}
+                        return (
+                            <div key={card_id} className="action-card">
+                                <p style={{fontSize: '1.5rem'}}>{card.name}</p>
+                                <p style={{fontSize: '1rem'}}>{card.description}</p>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
             {myTurn && <button onClick={handleAction}>Realizar ação da pilha</button>}
         </div>
     )

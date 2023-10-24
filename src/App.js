@@ -20,7 +20,7 @@ function App() {
     const roomPlayers = useRef([])
 
     async function conectar() {
-        connection.current = new WebSocket(`ws://${process.env.REACT_APP_API_ADDRESS}?user=${user.current}`, 'json')
+        connection.current = new WebSocket(`${process.env.REACT_APP_PROTOCOL === 'http' ? 'ws' : 'wss'}://${process.env.REACT_APP_API_ADDRESS}?user=${user.current}`, 'json')
         connection.current.onmessage = (messageevent) => {
             const message = JSON.parse(messageevent.data)
             setMessageQueue((prevState) => [...prevState, message])

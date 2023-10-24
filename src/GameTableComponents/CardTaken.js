@@ -12,8 +12,9 @@ function CardTaken({takenCard, whoTookCard, setMysteriousPresent, mysteriousPres
     }
 
     return (
+        takenCard !== null &&
         <div className="card-taken">
-            {takenCard !== null && takenCard !== "ACTION_CARD" && 
+            {takenCard !== "ACTION_CARD" && 
                 <div>
                     <p style={{color: '#004f89'}}>{whoTookCard} tirou a carta "{getCard(takenCard).name}"</p>
                     <p style={{color: 'black'}}>Descrição: {getCard(takenCard).description}</p>

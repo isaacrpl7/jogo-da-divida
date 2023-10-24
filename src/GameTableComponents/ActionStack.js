@@ -3,8 +3,8 @@ import { getCard } from "../CardsMapping";
 import { GameContext } from "../App";
 import SelectTargetUser from "../Pages/SelectTargetUser";
 
-function ActionStack({actionsStack, myTurn, theirTurn, roomUsers}){
-    const {connection, myCurrentObstacle} = useContext(GameContext)
+function ActionStack({actionsStack, myTurn, theirTurn, roomUsers, myCurrentObstacle}){
+    const {connection} = useContext(GameContext)
     const [selectTargetUser, setSelectTargetUser] = useState(false)
     const [cardToTransfer, setCardToTransfer] = useState(false)
 
@@ -32,6 +32,7 @@ function ActionStack({actionsStack, myTurn, theirTurn, roomUsers}){
             {selectTargetUser && <SelectTargetUser
                 setSelectTargetUser={setSelectTargetUser}
                 isTransferObstacle={true}
+                myCurrentObstacle={myCurrentObstacle}
                 cardToTransfer={cardToTransfer}
                 roomUsers={roomUsers}
             />}

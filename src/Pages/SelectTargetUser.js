@@ -1,8 +1,8 @@
 import { useContext } from "react"
 import { GameContext } from "../App"
 
-function SelectTargetUser({roomUsers, cardToTransfer, setCardToTransfer, setSelectTargetUser, setMyHand, isTransferObstacle}) {
-    const {user, connection, myCards, myCurrentObstacle} = useContext(GameContext)
+function SelectTargetUser({roomUsers, cardToTransfer, setCardToTransfer, setSelectTargetUser, setMyHand, isTransferObstacle, myCurrentObstacle}) {
+    const {user, connection} = useContext(GameContext)
 
     function handleCardTransfer(target){
         const target_user = target
@@ -14,10 +14,13 @@ function SelectTargetUser({roomUsers, cardToTransfer, setCardToTransfer, setSele
         } else {
             connection.current.send(JSON.stringify({protocol: "TRANSFER_CARD", target_user: target_user, card: cardToTransfer}))
     
-            const cardToRemove = myCards.current.indexOf(cardToTransfer)
-            myCards.current.splice(cardToRemove, 1)
-    
-            setMyHand([...myCards.current])
+            setMyHand(prevState => {
+                const cardToRemove = prevState.indexOf(cardToTransfer)
+                const new_array = [...prevState]
+                new_array.splice(cardToRemove, 1)
+                return new_array
+            })
+
             setCardToTransfer(null)
             setSelectTargetUser(false)
         }
@@ -26,7 +29,7 @@ function SelectTargetUser({roomUsers, cardToTransfer, setCardToTransfer, setSele
     return (
         <div className="select-user">
             <h2 style={{color: 'black'}}>Selecione o usuário para transferir</h2>
-            <p style={{position: 'absolute', top: '1rem', right: '1rem', margin: 0, color: 'black', cursor: 'pointer'}} onClick={() => {setSelectTargetUser(false)}}>X</p>
+            {!isTransferObstacle && <p style={{position: 'absolute', top: '1rem', right: '1rem', margin: 0, color: 'black', cursor: 'pointer'}} onClick={() => {setSelectTargetUser(false)}}>X</p>}
             {roomUsers.map((player) => {
                 return player !== user.current && <li key={`${player}_transfer`}><button 
                 onClick={() => {handleCardTransfer(player)}} 

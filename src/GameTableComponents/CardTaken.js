@@ -1,11 +1,9 @@
-import { useContext } from "react";
-import { GameContext } from "../App";
 import { getCard } from "../CardsMapping";
 
-function CardTaken({takenCard, whoTookCard, setMysteriousPresent, mysteriousPresent, handleTakeCard}) {
-    const {actionStackRef} = useContext(GameContext)
+function CardTaken({takenCard, whoTookCard, setMysteriousPresent, mysteriousPresent, handleTakeCard, actionsStack}) {
+
     function handleMysteriousPresent() {
-        if(actionStackRef.current.length) {
+        if(actionsStack.length) {
             alert("Execute suas ações antes de pegar o presente misterioso!")
             return
         }

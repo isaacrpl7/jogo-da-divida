@@ -2,27 +2,31 @@ import { useContext } from "react"
 import { getCard, isActionCard } from "../CardsMapping"
 import { GameContext } from "../App"
 
-function MyCards({setSelectTargetUser, setCardToTransfer, myHand, setMyHand, death, takenCard}) {
+function MyCards({setSelectTargetUser, setCardToTransfer, myHand, setMyHand, death, takenCard, actionsStack, myCurrentObstacle}) {
 
-    const {connection, myCards, actionStackRef, myCurrentObstacle} = useContext(GameContext)
+    const {connection} = useContext(GameContext)
 
     function handleDiscard(card) {
         setSelectTargetUser(false)
-        const cardIndex = myCards.current.indexOf(card)
-        myCards.current.splice(cardIndex, 1)
-        setMyHand([...myCards.current])
+        
+        setMyHand(prevState => {
+            const cardIndex = prevState.indexOf(card)
+            const new_array = [...prevState]
+            new_array.splice(cardIndex, 1)
+            return new_array
+        })
     }
 
     function handleUseCard(card_id) {
         setSelectTargetUser(false)
         if(card_id === 16 || card_id === 17) { // Se for carta de bloquear uma ação
-            if(!actionStackRef.current.length) {
+            if(!actionsStack.length) {
                 alert('Você só pode jogar essa carta quando houver uma ação a bloquear!')
                 return
             }
         }
         if(card_id === 18 || card_id === 19) { // Se for carta de repassar o obstáculo (O problema não é meu)
-            if(actionStackRef.current.length) {
+            if(actionsStack.length) {
                 alert('Todas as ações pendentes devem ser executadas antes de usar essa carta!')
                 return
             }
@@ -58,8 +62,8 @@ function MyCards({setSelectTargetUser, setCardToTransfer, myHand, setMyHand, dea
                         const card_obj = getCard(card_id)
                         const is_action = isActionCard(card_id)
                         return (
-                            <div className="card">
-                                <li className="card-list-item" key={card_id}>
+                            <div key={card_id} className="card">
+                                <li className="card-list-item">
                                     <p style={{fontSize: '1.5rem', color: '#b4ffeb'}}>{card_obj.name}</p>
                                     <p style={{fontSize: '1rem'}}>{card_obj.description}</p>
                                     {!death &&

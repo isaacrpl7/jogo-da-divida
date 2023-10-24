@@ -2,11 +2,10 @@ import { useContext } from "react";
 import { GameContext } from "../App";
 
 function Pyramid({pyramidPlayers, setPyramidPlayers}) {
-    const {user, pyramidPlayersRef, connection} = useContext(GameContext)
+    const {user, connection} = useContext(GameContext)
 
     function handleDissolve() {
-        pyramidPlayersRef.current = []
-        setPyramidPlayers(pyramidPlayersRef.current)
+        setPyramidPlayers([])
         connection.current.send(JSON.stringify({protocol: "PYRAMID_DISSOLVE"}))
     }
 

@@ -97,6 +97,14 @@ function Game() {
                 })
             }
 
+            if(message.protocol === "WINNER"){
+                if(message.winner === user.current) {
+                    alert('Você ganhou o jogo. Parabéns!')
+                } else {
+                    alert(`${message.winner} ganhou o jogo! Podem ir dando os parabéns pra ele.`)
+                }
+            }
+
             if(message.protocol === "INITIAL_CARDS") {
                 // myCards.current = message.cards
                 setMyHand(message.cards)
@@ -239,6 +247,10 @@ function Game() {
             if(message.protocol === "PYRAMID_DISSOLVE"){
                 // pyramidPlayersRef.current = []
                 setPyramidPlayers([])
+            }
+
+            if(message.protocol === "CARDS_OVER"){
+                alert("As cartas acabaram. Decidam entre si quem foi o vencedor!")
             }
 
             console.log(message)

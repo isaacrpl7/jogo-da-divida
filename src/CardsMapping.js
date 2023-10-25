@@ -11,11 +11,11 @@ export function getCard(card_id) {
         },
         2: {
             name: 'Herança de Família',
-            description: 'Use a carta para ganhar 5000.'
+            description: 'Use a carta para ganhar 10000.'
         },
         3: {
             name: 'Poupança',
-            description: 'Use a carta para ganhar 2000.'
+            description: 'Use a carta para ganhar 5000.'
         },
         4: {
             name: 'Informação Privilegiada',
@@ -27,11 +27,11 @@ export function getCard(card_id) {
         },
         6: {
             name: 'Ações da bolsa',
-            description: 'Jogue o dado e descubra se ganha ou paga: 1-2 pague 2000, 3-4 nada, 5-6 ganhe 5000.'
+            description: 'Jogue o dado e descubra se ganha ou paga: 1-2 pague 10000, 3-4 nada, 5-6 ganhe 5000.'
         },
         7: {
             name: 'Ações da bolsa',
-            description: 'Jogue o dado e descubra se ganha ou paga: 1-2 pague 2000, 3-4 nada, 5-6 ganhe 5000.'
+            description: 'Jogue o dado e descubra se ganha ou paga: 1-2 pague 10000, 3-4 nada, 5-6 ganhe 5000.'
         },
         8: {
             name: 'Camaradagem',
@@ -101,115 +101,115 @@ export function getCard(card_id) {
         // CARTAS DE OBSTÁCULOS VERMELHOS
         24: {
             name: 'Golpe da mãe sequestrada',
-            description: 'Role o dado e descubra se caiu no golpe ou não: 5-6 = escapou, 1,2,3,4 = pague 2000 pro banco'
+            description: 'Role o dado e descubra se caiu no golpe ou não: 5-6 = escapou, 1,2,3,4 = pague 8000 pro banco'
         },
         25: {
             name: 'Golpe da mãe sequestrada',
-            description: 'Role o dado e descubra se caiu no golpe ou não: 5-6 = escapou, 1,2,3,4 = pague 2000 pro banco'
+            description: 'Role o dado e descubra se caiu no golpe ou não: 5-6 = escapou, 1,2,3,4 = pague 8000 pro banco'
         },
         26: { // Verificar como implementar (CARTA ATIVA TB)
             name: 'Esquema de pirâmide',
-            description: 'O primeiro integrante pode extorquir os próximos. Descartar caso a pessoa do topo queira reivindicar o dinheiro. O topo recebe 3000 de cada jogador da pirâmide.'
+            description: 'O primeiro integrante pode extorquir os próximos. Descartar caso a pessoa do topo queira reivindicar o dinheiro. O topo recebe 4000 de cada jogador da pirâmide.'
         },
         27: {
             name: 'Esquema de pirâmide',
-            description: 'O primeiro integrante pode extorquir os próximos. Descartar caso a pessoa do topo queira reivindicar o dinheiro. O topo recebe 3000 de cada jogador da pirâmide.'
+            description: 'O primeiro integrante pode extorquir os próximos. Descartar caso a pessoa do topo queira reivindicar o dinheiro. O topo recebe 4000 de cada jogador da pirâmide.'
         },
         28: {
             name: 'Esquema de pirâmide',
-            description: 'O primeiro integrante pode extorquir os próximos. Descartar caso a pessoa do topo queira reivindicar o dinheiro. O topo recebe 3000 de cada jogador da pirâmide.'
+            description: 'O primeiro integrante pode extorquir os próximos. Descartar caso a pessoa do topo queira reivindicar o dinheiro. O topo recebe 4000 de cada jogador da pirâmide.'
         },
         29: {
             name: 'Esquema de pirâmide',
-            description: 'O primeiro integrante pode extorquir os próximos. Descartar caso a pessoa do topo queira reivindicar o dinheiro. O topo recebe 3000 de cada jogador da pirâmide.'
+            description: 'O primeiro integrante pode extorquir os próximos. Descartar caso a pessoa do topo queira reivindicar o dinheiro. O topo recebe 4000 de cada jogador da pirâmide.'
         },
         30: {
             name: 'Esquema de pirâmide',
-            description: 'O primeiro integrante pode extorquir os próximos. Descartar caso a pessoa do topo queira reivindicar o dinheiro. O topo recebe 3000 de cada jogador da pirâmide.'
+            description: 'O primeiro integrante pode extorquir os próximos. Descartar caso a pessoa do topo queira reivindicar o dinheiro. O topo recebe 4000 de cada jogador da pirâmide.'
         },
         31: {
             name: 'Receita Federal',
-            description: 'Pagar taxa ou rolar dado pra tentar sonegar: pague 2000, para sonegar tem que tirar 5-6, caso falha, pague 4000'
+            description: 'Pagar taxa ou rolar dado pra tentar sonegar: pague 5000, para sonegar tem que tirar 5-6, caso falha, pague 10000'
         },
         32: {
             name: 'Receita Federal',
-            description: 'Pagar taxa ou rolar dado pra tentar sonegar: pague 2000, para sonegar tem que tirar 5-6, caso falha, pague 4000'
+            description: 'Pagar taxa ou rolar dado pra tentar sonegar: pague 5000, para sonegar tem que tirar 5-6, caso falha, pague 10000'
         },
         33: {
             name: 'Agiota',
-            description: 'Te oferece dinheiro, ou cobra a dívida. (Caso esteja devendo e não pague, é morto)'
+            description: 'Te oferece dinheiro, ou cobra a dívida. (Caso esteja devendo e não pague, é morto) Pode pegar empréstimo no minimo 1000 e máximo 20000 por Agiota.'
         },
         34: {
             name: 'Agiota',
-            description: 'Te oferece dinheiro, ou cobra a dívida. (Caso esteja devendo e não pague, é morto)'
+            description: 'Te oferece dinheiro, ou cobra a dívida. (Caso esteja devendo e não pague, é morto) Pode pegar empréstimo no minimo 1000 e máximo 20000 por Agiota.'
         },
         35: {
             name: 'Agiota',
-            description: 'Te oferece dinheiro, ou cobra a dívida. (Caso esteja devendo e não pague, é morto)'
+            description: 'Te oferece dinheiro, ou cobra a dívida. (Caso esteja devendo e não pague, é morto) Pode pegar empréstimo no minimo 1000 e máximo 20000 por Agiota.'
         },
         36: {
             name: 'Agiota Irritado',
-            description: 'Te oferece dinheiro, ou cobra a dívida. (Caso esteja devendo, pague imediatamente sem empréstimos, ou seja morto)'
+            description: 'Te oferece dinheiro, ou cobra a dívida. (Caso esteja devendo, pague imediatamente sem empréstimos, ou seja morto) Pode pegar empréstimo no minimo 1000 e máximo 20000 por Agiota.'
         },
         37: {
             name: 'Agiota Irritado',
-            description: 'Te oferece dinheiro, ou cobra a dívida. (Caso esteja devendo, pague imediatamente sem empréstimos, ou seja morto)'
+            description: 'Te oferece dinheiro, ou cobra a dívida. (Caso esteja devendo, pague imediatamente sem empréstimos, ou seja morto) Pode pegar empréstimo no minimo 1000 e máximo 20000 por Agiota.'
         },
         38: {
             name: 'Agiota Irritado',
-            description: 'Te oferece dinheiro, ou cobra a dívida. (Caso esteja devendo, pague imediatamente sem empréstimos, ou seja morto)'
+            description: 'Te oferece dinheiro, ou cobra a dívida. (Caso esteja devendo, pague imediatamente sem empréstimos, ou seja morto) Pode pegar empréstimo no minimo 1000 e máximo 20000 por Agiota.'
         },
         39: {
             name: 'Auditor Fiscal',
-            description: 'Te cobra uma taxa de 1000 imediatamente. Caso esteja endividado com o banco, pague a dívida ou seja preso.'
+            description: 'Te cobra uma taxa de 5000 imediatamente. Caso esteja endividado com o banco, pague a dívida ou seja preso.'
         },
         40: {
             name: 'Auditor Fiscal',
-            description: 'Te cobra uma taxa de 1000 imediatamente. Caso esteja endividado com o banco, pague a dívida ou seja preso.'
+            description: 'Te cobra uma taxa de 5000 imediatamente. Caso esteja endividado com o banco, pague a dívida ou seja preso.'
         },
         41: {
             name: 'Auditor Fiscal',
-            description: 'Te cobra uma taxa de 1000 imediatamente. Caso esteja endividado com o banco, pague a dívida ou seja preso.'
+            description: 'Te cobra uma taxa de 5000 imediatamente. Caso esteja endividado com o banco, pague a dívida ou seja preso.'
         },
         42: {
             name: 'Auditor Fiscal',
-            description: 'Te cobra uma taxa de 1000 imediatamente. Caso esteja endividado com o banco, pague a dívida ou seja preso.'
+            description: 'Te cobra uma taxa de 5000 imediatamente. Caso esteja endividado com o banco, pague a dívida ou seja preso.'
         },
         43: {
             name: 'Auditor Fiscal',
-            description: 'Te cobra uma taxa de 1000 imediatamente. Caso esteja endividado com o banco, pague a dívida ou seja preso.'
+            description: 'Te cobra uma taxa de 5000 imediatamente. Caso esteja endividado com o banco, pague a dívida ou seja preso.'
         },
         44: {
             name: 'Auditor Fiscal',
-            description: 'Te cobra uma taxa de 1000 imediatamente. Caso esteja endividado com o banco, pague a dívida ou seja preso.'
+            description: 'Te cobra uma taxa de 5000 imediatamente. Caso esteja endividado com o banco, pague a dívida ou seja preso.'
         },
         45: {
             name: 'N caras M motos',
-            description: "Reagirão de forma diferente de acordo com sua classe social. Classe A: saldo maior que 10.000 → Paga 2000 Classe B: saldo entre 5.000 e 10.000 → Paga 1000 Classe C: saldo menor que 5.000 → Paga nada"
+            description: "Reagirão de forma diferente de acordo com sua classe social. Classe A: saldo maior que 10.000 → Paga 15.000 Classe B: saldo entre 5.000 e 10.000 → Paga 5.000 Classe C: saldo menor que 5.000 → Paga nada"
         },
         46: {
             name: 'N caras M motos',
-            description: 'Reagirão de forma diferente de acordo com sua classe social. Classe A: saldo maior que 10.000 → Paga 2000 Classe B: saldo entre 5.000 e 10.000 → Paga 1000 Classe C: saldo menor que 5.000 → Paga nada'
+            description: 'Reagirão de forma diferente de acordo com sua classe social. Classe A: saldo maior que 10.000 → Paga 15.000 Classe B: saldo entre 5.000 e 10.000 → Paga 5.000 Classe C: saldo menor que 5.000 → Paga nada'
         },
         47: {
             name: 'Ajudar a sogra',
-            description: 'Pague 500 pra sua sogra.'
+            description: 'Pague 5.000 pra sua sogra.'
         },
         48: {
             name: 'Carinha que mora logo ali',
-            description: 'Pague 200 já, bora.'
+            description: 'Pague 4.000 já, bora.'
         },
         49: {
             name: 'Impostos',
-            description: 'Pague 1000 de imposto.'
+            description: 'Pague 10.000 de imposto.'
         },
         50: {
             name: 'Raspadinha',
-            description: 'Role o dado e descubra se ganhou ou se gastou em bilhetes: 1-5 = pague 500, 6= ganhe 5000.'
+            description: 'Role o dado e descubra se ganhou ou se gastou em bilhetes: 1-5 = pague 1.000, 6= ganhe 5.000.'
         },
         51: {
             name: 'Raspadinha',
-            description: 'Role o dado e descubra se ganhou ou se gastou em bilhetes: 1-5 = pague 500, 6= ganhe 5000.'
+            description: 'Role o dado e descubra se ganhou ou se gastou em bilhetes: 1-5 = pague 1.000, 6= ganhe 5.000.'
         },
         52: {
             name: 'Tremendo FDP',
@@ -221,27 +221,27 @@ export function getCard(card_id) {
         },
         54: {
             name: 'Campanha política',
-            description: 'Classe A: saldo maior que 10.000 → recebe 1000 Classe B: saldo entre 5.000 e 10.000 → Paga 1000 Classe C: saldo menor que 5.000 → recebe 500'
+            description: 'Classe A: saldo maior que 10.000 → recebe 2.000 Classe B: saldo entre 5.000 e 10.000 → Recebe 1.000 Classe C: saldo menor que 5.000 → recebe 500'
         },
         55: {
             name: 'Campanha política',
-            description: 'Classe A: saldo maior que 10.000 → recebe 1000 Classe B: saldo entre 5.000 e 10.000 → Paga 1000 Classe C: saldo menor que 5.000 → recebe 500'
+            description: 'Classe A: saldo maior que 10.000 → recebe 2.000 Classe B: saldo entre 5.000 e 10.000 → Recebe 1.000 Classe C: saldo menor que 5.000 → recebe 500'
         },
         56: {
             name: 'Urubu do PIX',
-            description: 'Perca 2000.'
+            description: 'Perca 5.000.'
         },
         57: {
             name: 'Urubu do PIX',
-            description: 'Perca 2000.'
+            description: 'Perca 5.000.'
         },
         58: {
             name: 'Collor-zada',
-            description: 'Sua poupança foi confiscada. Perca de acordo com a classe: A= perde 5000, B= perde 1000, C= nada.'
+            description: 'Sua poupança foi confiscada. Perca de acordo com a classe: Classe A: saldo maior que 10.000 → pague 10.000 Classe B: saldo entre 5.000 e 10.000 → Paga 3.000 Classe C: saldo menor que 5.000 → pague 1000.'
         },
         59: {
             name: 'Collor-zada',
-            description: 'Sua poupança foi confiscada. Perca de acordo com a classe: A= perde 5000, B= perde 1000, C= nada.'
+            description: 'Sua poupança foi confiscada. Perca de acordo com a classe: Classe A: saldo maior que 10.000 → pague 10.000 Classe B: saldo entre 5.000 e 10.000 → Paga 3.000 Classe C: saldo menor que 5.000 → pague 1000.'
         },
         60: {
             name: 'Imposto de renda',
@@ -263,27 +263,27 @@ export function getCard(card_id) {
         // CARTAS DE OBSTÁCULOS BÔNUS
         64: {
             name: 'Dinheiro no chão',
-            description: 'Pegue dinheiro do chão e ganhe 500 paus.'
+            description: 'Pegue dinheiro do chão e ganhe 1.000 paus.'
         },
         65: {
             name: 'Dinheiro no chão',
-            description: 'Pegue dinheiro do chão e ganhe 500 paus.'
+            description: 'Pegue dinheiro do chão e ganhe 1.000 paus.'
         },
         66: {
             name: 'Amigo é coisa pra se guardar',
-            description: 'Pegue 2000 de um jogador.'
+            description: 'Pegue 4.000 de um jogador.'
         },
         67: {
             name: 'Amigo é coisa pra se guardar',
-            description: 'Pegue 2000 de um jogador.'
+            description: 'Pegue 4.000 de um jogador.'
         },
         68: {
             name: 'É dando que se recebe',
-            description: 'Todos pagam 1000 a quem puxou.'
+            description: 'Todos pagam 3.000 a quem puxou.'
         },
         69: {
             name: 'É dando que se recebe',
-            description: 'Todos pagam 1000 a quem puxou.'
+            description: 'Todos pagam 3.000 a quem puxou.'
         },
         70: {
             name: 'Fez hora extra',
@@ -295,11 +295,11 @@ export function getCard(card_id) {
         },
         72: {
             name: 'X9',
-            description: 'Todos devem pagar 1000 ao banco.'
+            description: 'Todos devem pagar 5.000 ao banco.'
         },
         73: {
             name: 'X9',
-            description: 'Todos devem pagar 1000 ao banco.'
+            description: 'Todos devem pagar 5.000 ao banco.'
         },
         74: {// VERIFICAR COMO IMPLEMENTAR
             name: 'Meu marido tem dois empregos',
@@ -307,53 +307,53 @@ export function getCard(card_id) {
         },
         75: {
             name: 'Maoê!',
-            description: 'Você participou do programa do silvio santos, jogue o dado e ganhe uma grana: 1-2= 500, 3-4=1000, 5-6=2000'
+            description: 'Você participou do programa do silvio santos, jogue o dado e ganhe uma grana: 1-2= 1000, 3-4=3000, 5-6 = 5000'
         },
         76: {
             name: 'Maoê!',
-            description: 'Você participou do programa do silvio santos, jogue o dado e ganhe uma grana: 1-2= 500, 3-4=1000, 5-6=2000'
+            description: 'Você participou do programa do silvio santos, jogue o dado e ganhe uma grana: 1-2= 1000, 3-4=3000, 5-6 = 5000'
         },
         77: {
             name: 'Aprendiz de Ret',
-            description: 'Vendeu as marmitas certinho, role o dado e ganhe grana: 1-2= 100, 3-4= 200, 5-6= 500'
+            description: 'Vendeu as marmitas certinho, role o dado e ganhe grana: 1-2= 500, 3-4= 1500, 5-6= 2000'
         },
         78: {
             name: 'Aprendiz de Ret',
-            description: 'Vendeu as marmitas certinho, role o dado e ganhe grana: 1-2= 100, 3-4= 200, 5-6= 500'
+            description: 'Vendeu as marmitas certinho, role o dado e ganhe grana: 1-2= 500, 3-4= 1500, 5-6= 2000'
         },
         79: {
             name: 'Vendedor de curso',
-            description: 'Você vendeu curso, jogue o dado e ganhe grana: 1-2= 500, 3-4= 1000, 5-6= 1500'
+            description: 'Você vendeu curso, jogue o dado e ganhe grana: 1-2= 500, 3-4= 2000, 5-6= 3000'
         },
         80: {
             name: 'Vendedor de curso',
-            description: 'Você vendeu curso, jogue o dado e ganhe grana: 1-2= 500, 3-4= 1000, 5-6= 1500'
+            description: 'Você vendeu curso, jogue o dado e ganhe grana: 1-2= 500, 3-4= 2000, 5-6= 3000'
         },
         81: {
             name: 'Homem de palavra',
-            description: 'Caso não esteja devendo nada a ninguém, ganhe 5000.'
+            description: 'Caso não esteja devendo nada a ninguém, ganhe 10.000.'
         },
         82: {
             name: 'Homem de palavra',
-            description: 'Caso não esteja devendo nada a ninguém, ganhe 5000.'
+            description: 'Caso não esteja devendo nada a ninguém, ganhe 10.000.'
         },
         83: {
-            name: '100 reais ou presente misterioso?',
-            description: 'Puxe 100 reais, ou puxe um novo obstáculo.'
+            name: '500 reais ou presente misterioso?',
+            description: 'Puxe 500 reais, ou puxe um novo obstáculo.'
         },
         84: {
-            name: '100 reais ou presente misterioso?',
-            description: 'Puxe 100 reais, ou puxe um novo obstáculo.'
+            name: '500 reais ou presente misterioso?',
+            description: 'Puxe 500 reais, ou puxe um novo obstáculo.'
         },
 
         // CARTAS DE EMPREGO (VERIFICAR COMO IMPLEMENTAR)
         85: {
             name: 'Médico',
-            description: 'Salário de 10000'
+            description: 'Salário de 8000'
         },
         86: {
             name: 'Advogado',
-            description: 'Salário de 7000'
+            description: 'Salário de 6000'
         },
         87: {
             name: 'Servente de pedreiro',
@@ -361,7 +361,7 @@ export function getCard(card_id) {
         },
         88: {
             name: 'Desenvolvedor de Software',
-            description: 'Salário de 7000'
+            description: 'Salário de 6000'
         },
         89: {
             name: 'Atendente de FastFood',
@@ -385,7 +385,7 @@ export function getCard(card_id) {
         },
         94: {
             name: 'Empreendedor',
-            description: 'Role o dado para saber seu salário: 1-3: 5000, 4-5 = 8000, 6 = 12000'
+            description: 'Role o dado para saber seu salário: 1-2: 3000, 3-4 = 6000, 5-6 = 9000'
         },
     }
 

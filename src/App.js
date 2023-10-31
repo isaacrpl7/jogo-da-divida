@@ -38,8 +38,11 @@ function App() {
         connection.current.onerror = () => {
             console.log('onerror fired')
         }
-        connection.current.onclose = () => {
+        connection.current.onclose = (event) => {
             console.log('onclose fired')
+            console.log(`Code: ${event.code}`)
+            console.log(`Reason: ${event.reason}`)
+            console.log(`Clean closing: ${event.wasClean}`)
             setTimeout(() => {
                 console.log('Reconnecting...')
                 conectar()

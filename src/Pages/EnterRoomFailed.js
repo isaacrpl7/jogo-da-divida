@@ -4,7 +4,7 @@ function EnterRoomFailed() {
     return (
         <div className="App">
             <header className="App-header">
-                <h1>Sala não existe</h1>
+                <h1>Erro ao entrar na sala!</h1>
             </header>
         </div>
     );

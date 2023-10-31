@@ -74,6 +74,7 @@ function Game() {
 
             if(message.protocol === "ENTER_ROOM_FAILED") {
                 navigate('/enter-room-failed')
+                alert(message.msg)
             }
 
             if(message.protocol === "DELEGATE_START"){

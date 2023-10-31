@@ -10,7 +10,6 @@ export const GameContext = createContext()
 function App() {
     const params = useParams()
     const connection = useRef(null)
-    const reconnectionInterval = useRef(null)
     const user = useRef(window.localStorage.username)
     const [messageQueue, setMessageQueue] = useState([])
 
@@ -31,11 +30,7 @@ function App() {
             }
         }
         connection.current.onopen = () => {
-            if(reconnectionInterval.current) {
-                console.log('Reconnected!')
-                clearInterval(reconnectionInterval.current)
-                reconnectionInterval.current = null
-            }
+            console.log('Connected!')
             if(params.roomId) {
                 connection.current.send(JSON.stringify({protocol: 'ENTER_ROOM', room: params.roomId}))
             }
@@ -45,7 +40,7 @@ function App() {
         }
         connection.current.onclose = () => {
             console.log('onclose fired')
-            reconnectionInterval.current = setInterval(() => {
+            setTimeout(() => {
                 console.log('Reconnecting...')
                 conectar()
             }, Math.floor(Math.random() * 100))

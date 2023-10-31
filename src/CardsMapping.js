@@ -339,53 +339,53 @@ export function getCard(card_id) {
         },
         83: {
             name: '500 reais ou presente misterioso?',
-            description: 'Puxe 500 reais, ou puxe um novo obstáculo.'
+            description: 'Receba 500 reais, ou puxe uma nova carta.'
         },
         84: {
             name: '500 reais ou presente misterioso?',
-            description: 'Puxe 500 reais, ou puxe um novo obstáculo.'
+            description: 'Receba 500 reais, ou puxe uma nova carta.'
         },
 
         // CARTAS DE EMPREGO (VERIFICAR COMO IMPLEMENTAR)
         85: {
             name: 'Médico',
-            description: 'Salário de 8000'
+            description: 'Você conseguiu um emprego. Receba seu salário no início de cada turno: Salário de 8000'
         },
         86: {
             name: 'Advogado',
-            description: 'Salário de 6000'
+            description: 'Você conseguiu um emprego. Receba seu salário no início de cada turno: Salário de 6000'
         },
         87: {
             name: 'Servente de pedreiro',
-            description: 'Salário de 1000'
+            description: 'Você conseguiu um emprego. Receba seu salário no início de cada turno: Salário de 1000'
         },
         88: {
             name: 'Desenvolvedor de Software',
-            description: 'Salário de 6000'
+            description: 'Você conseguiu um emprego. Receba seu salário no início de cada turno: Salário de 6000'
         },
         89: {
             name: 'Atendente de FastFood',
-            description: 'Salário de 1500'
+            description: 'Você conseguiu um emprego. Receba seu salário no início de cada turno: Salário de 1500'
         },
         90: {
             name: 'Engenheiro',
-            description: 'Salário de 5000'
+            description: 'Você conseguiu um emprego. Receba seu salário no início de cada turno: Salário de 5000'
         },
         91: {
             name: 'Administrador',
-            description: 'Salário de 3000'
+            description: 'Você conseguiu um emprego. Receba seu salário no início de cada turno: Salário de 3000'
         },
         92: {
             name: 'Professor',
-            description: 'Salário de 3000'
+            description: 'Você conseguiu um emprego. Receba seu salário no início de cada turno: Salário de 3000'
         },
         93: {
             name: 'Streamer',
-            description: 'Role o dado para saber seu salário: 1-2 = 1000, 3-4 = 3000, 5-6 = 10000'
+            description: 'Você conseguiu um emprego. Receba seu salário no início de cada turno: Role o dado para saber seu salário: 1-2 = 1000, 3-4 = 3000, 5-6 = 10000'
         },
         94: {
             name: 'Empreendedor',
-            description: 'Role o dado para saber seu salário: 1-2: 3000, 3-4 = 6000, 5-6 = 9000'
+            description: 'Você conseguiu um emprego. Receba seu salário no início de cada turno: Role o dado para saber seu salário: 1-2: 3000, 3-4 = 6000, 5-6 = 9000'
         },
     }
 

@@ -9,6 +9,7 @@ function MyCards({setSelectTargetUser, setCardToTransfer, myHand, setMyHand, dea
     function handleDiscard(card) {
         setSelectTargetUser(false)
         
+        connection.current.send(JSON.stringify({protocol: 'DISCARD_CARD', card: card}))
         setMyHand(prevState => {
             const cardIndex = prevState.indexOf(card)
             const new_array = [...prevState]

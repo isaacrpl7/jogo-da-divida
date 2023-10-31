@@ -20,15 +20,25 @@ function App() {
     const roomPlayers = useRef([])
 
     async function conectar() {
-        connection.current = new WebSocket(`${process.env.REACT_APP_PROTOCOL === 'http' ? 'ws' : 'wss'}://${process.env.REACT_APP_API_ADDRESS}?user=${user.current}`, 'json')
+        connection.current = new WebSocket(`${process.env.REACT_APP_PROTOCOL === 'http' ? 'ws' : 'wss'}://${process.env.REACT_APP_API_ADDRESS}?user=${user.current}&user_token=${window.localStorage.user_token}`, 'json')
         connection.current.onmessage = (messageevent) => {
             const message = JSON.parse(messageevent.data)
-            setMessageQueue((prevState) => [...prevState, message])
+            if(message.protocol === "CREATING_USER") {
+                window.localStorage.user_token = message.token
+            } else {
+                setMessageQueue((prevState) => [...prevState, message])
+            }
         }
         connection.current.onopen = () => {
             if(params.roomId) {
                 connection.current.send(JSON.stringify({protocol: 'ENTER_ROOM', room: params.roomId}))
             }
+        }
+        connection.current.onerror = () => {
+            console.log('onerror fired')
+        }
+        connection.current.onclose = () => {
+            console.log('onclose fired')
         }
     }
 

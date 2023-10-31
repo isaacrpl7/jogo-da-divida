@@ -20,19 +20,23 @@ function Game() {
     const [roomUsers, setRoomUsers] = useState([])
     const [startButton, setStartButton] = useState(false)
 
+    // Player state
     const [myHand, setMyHand] = useState([])
-    const [gameBegun, setGameBegun] = useState(false)
-    const alivePlayers = useRef([])
     const [myTurn, setMyTurn] = useState(false)
     const [theirTurn, setTheirTurn] = useState('')
-    const [takenCard, setTakenCard] = useState(null)
-    const [whoTookCard, setWhoTookCard] = useState('')
     const myCurrentObstacle = useRef(null)
     const [mysteriousPresent, setMysteriousPresent] = useState(false)
-    const [transferPyramidVisible, setTransferPyramidVisible] = useState(false)
-    const [pyramidPlayers, setPyramidPlayers] = useState([])
     const [noNeedToDrawCard, setNoNeedToDrawCard] = useState(false)
+    const [transferPyramidVisible, setTransferPyramidVisible] = useState(false)
+    const [takenCard, setTakenCard] = useState(null)
+
+    // Room state
+    const [gameBegun, setGameBegun] = useState(false)
+    const alivePlayers = useRef([])
+    const [whoTookCard, setWhoTookCard] = useState('')
+    const [pyramidPlayers, setPyramidPlayers] = useState([])
     const [actionsStack, setActionsStack] = useState([])
+
 
     async function handleStart() {
         await fetch(`${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_API_ADDRESS}/turno/${room}`);
@@ -74,7 +78,7 @@ function Game() {
             if(message.protocol === "ENTER_ROOM_FAILED") {
                 navigate('/enter-room-failed')
             }
-    
+
             if(message.protocol === "DELEGATE_START"){
                 console.log('ATIVANDO BOTAO DE START')
                 setStartButton(true)
@@ -230,16 +234,15 @@ function Game() {
             }
 
             if(message.protocol === "OBSTACLE_ACTION") {
-                if(message.action === "ADD_PYRAMID") {
-                    const newPyramid = [...pyramidPlayers, message.player]
+                if(message.action === "CHANGE_PYRAMID") {
+                    const newPyramid = message.pyramid
                     
-                    if(newPyramid.length === alivePlayers.current.length){
+                    if(!newPyramid.length){
                         alert("A pirâmide chegou no máximo de jogadores, portanto será dissolvida!")
                         // pyramidPlayersRef.current = []
                         setPyramidPlayers([])
-                        connection.current.send(JSON.stringify({protocol: "PYRAMID_DISSOLVE"}))
                     } else {
-                        setPyramidPlayers(prevState => [...prevState, message.player])
+                        setPyramidPlayers(message.pyramid)
                     }
                 }
             }

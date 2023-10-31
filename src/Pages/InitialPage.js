@@ -7,7 +7,7 @@ function InitialPage({user, connection}) {
         const response = await fetch(`${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_API_ADDRESS}/criarSala`,
         {method: 'POST', headers: {
             "Content-Type": "application/json",
-        }, body: JSON.stringify({user: user.current})});
+        }, body: JSON.stringify({user: window.localStorage.user_token})});
         const room = await response.json()
         if(room.msg) {
             console.log(room.msg)

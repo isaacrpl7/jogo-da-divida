@@ -5,7 +5,6 @@ function Pyramid({pyramidPlayers, setPyramidPlayers}) {
     const {user, connection} = useContext(GameContext)
 
     function handleDissolve() {
-        setPyramidPlayers([])
         connection.current.send(JSON.stringify({protocol: "PYRAMID_DISSOLVE"}))
     }
 

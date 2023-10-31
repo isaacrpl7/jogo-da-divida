@@ -5,7 +5,7 @@ import CardTaken from "./GameTableComponents/CardTaken";
 import MyCards from "./GameTableComponents/MyCards";
 import { GameContext } from "./App";
 import Pyramid from "./GameTableComponents/Pyramid";
-import { getCard, isBadObstacleCard, isBonusObstacleCard } from "./CardsMapping";
+import { getCard } from "./CardsMapping";
 import { useNavigate } from "react-router-dom";
 
 function Game() {
@@ -50,8 +50,6 @@ function Game() {
             if(myCurrentObstacle.current >= 26 && myCurrentObstacle.current <= 30 ){
                 connection.current.send(JSON.stringify({protocol: 'OBSTACLE_ACTION', card_id: myCurrentObstacle.current}))
             }
-            setNoNeedToDrawCard(false)
-            myCurrentObstacle.current = null
             connection.current.send(JSON.stringify({protocol: 'NEXT_TURN'}))
         }
     }
@@ -64,7 +62,6 @@ function Game() {
         if (actionsStack.length){
             alert('Faça suas ações antes de declarar morte!')
         } else {
-            setMysteriousPresent(false)
             setSelectTargetUser(false)
             connection.current.send(JSON.stringify({protocol: 'GAMEOVER'}))
             setDeath(true)
@@ -84,21 +81,57 @@ function Game() {
                 setStartButton(true)
             }
     
-            if(message.protocol === 'USER_ENTERED' || message.protocol === "USER_LEFT") {
+            if(message.protocol === 'USER_ENTERED') {
                 alivePlayers.current = message.users
                 setRoomUsers(message.users)
             }
+            if(message.protocol === 'USER_LEFT') {
+                alivePlayers.current = message.users
+                setRoomUsers(message.users)
+                alert(`Usuário ${message.user_leaving} saiu!`)
+            }
 
-            if(message.protocol === "GAMEOVER"){
-                const indexOfDeadPlayer = alivePlayers.current.indexOf(message.player)
-                alivePlayers.current.splice(indexOfDeadPlayer, 1)
+            /** USER STATES */
+            if(message.protocol === "SET_MY_HAND"){
+                setMyHand(message.myHand)
+            }
+            if(message.protocol === "SET_MY_TURN"){
+                setMyTurn(message.myTurn)
+            }
+            if(message.protocol === "SET_MY_CURRENT_OBSTACLE"){
+                myCurrentObstacle.current = message.myCurrentObstacle
+            }
+            if(message.protocol === "SET_TAKEN_CARD"){
+                setTakenCard(message.takenCard)
+            }
+            if(message.protocol === "SET_THEIR_TURN"){
+                setTheirTurn(message.theirTurn)
+            }
+            if(message.protocol === "SET_MYTERIOUS_PRESENT"){
+                setMysteriousPresent(message.mysteriousPresent)
+            }
+            if(message.protocol === "SET_NO_NEED_TO_DRAW_CARD"){
+                setNoNeedToDrawCard(message.noNeedToDrawCard)
+            }
+            if(message.protocol === "SET_TRANSFER_PYRAMID_VISIBLE"){
+                setTransferPyramidVisible(message.transferPyramidVisible)
+            }
 
-                const indexOfDeadPlayerInPyramid = pyramidPlayers.indexOf(message.player)
-                setPyramidPlayers(prevState => {
-                    const new_array = [...prevState]
-                    new_array.splice(indexOfDeadPlayerInPyramid, 1)
-                    return new_array
-                })
+            /** ROOM STATES */
+            if(message.protocol === "SET_GAME_BEGUN"){
+                setGameBegun(message.gameBegun)
+            }
+            if(message.protocol === "SET_ALIVE_PLAYERS"){
+                alivePlayers.current = message.alivePlayers
+            }
+            if(message.protocol === "SET_WHO_TOOK_CARD"){
+                setWhoTookCard(message.whoTookCard)
+            }
+            if(message.protocol === "SET_PYRAMID_PLAYERS"){
+                setPyramidPlayers(message.pyramidPlayers)
+            }
+            if(message.protocol === "SET_ACTIONS_STACK"){
+                setActionsStack(message.actionsStack)
             }
 
             if(message.protocol === "WINNER"){
@@ -109,117 +142,7 @@ function Game() {
                 }
             }
 
-            if(message.protocol === "INITIAL_CARDS") {
-                // myCards.current = message.cards
-                setMyHand(message.cards)
-                setGameBegun(true)
-            }
-
-            if(message.protocol === "YOUR_TURN") {
-                setTakenCard(null)
-                setWhoTookCard('')
-
-                // myTurnRef.current = true
-                setMyTurn(true)
-                setTheirTurn('')
-            }
-
-            if(message.protocol === "THEIR_TURN") {
-                setTakenCard(null)
-                setWhoTookCard('')
-
-                // myTurnRef.current = false
-                setMyTurn(false)
-                setTheirTurn(message.current_player)
-            }
-
-            if(message.protocol === "YOU_TOOK_CARD") {
-                if(isBadObstacleCard(message.card) || isBonusObstacleCard(message.card)){
-                    myCurrentObstacle.current = message.card
-
-                    // Se for carta do presente misterioso
-                    if(myCurrentObstacle.current === 83 || myCurrentObstacle.current === 84) {
-                        setMysteriousPresent(true)
-                    } else {
-                        setMysteriousPresent(false)
-                    }
-
-                    // Se for carta de esquema de pirâmide, mas já tenho esquema de pirâmide
-                    if(myCurrentObstacle.current >= 26 && myCurrentObstacle.current <= 30 && pyramidPlayers.includes(user.current)) {
-                        setTransferPyramidVisible(true)
-                    }
-                } else {
-                    // myCards.current = [...myCards.current, message.card]
-                    setMyHand(prevState => [...prevState, message.card])
-                }
-            }
-
-            if(message.protocol === "PLAYER_TOOK_CARD") {
-                if(message.card === "ACTION_CARD") {
-                    setTakenCard("ACTION_CARD")
-                } else {
-                    setTakenCard(message.card)
-                }
-                setWhoTookCard(message.player)
-            }
-
-            if(message.protocol === "ACTION_STACK_ADD") {
-
-                // SE FOR A CARTA DE TÔ FORA (Basta ela estar na pilha de cartas de ações para impedir o jogador de puxar carta)
-                if(message["card_id"] === 20 || message["card_id"] === 21) {
-                    console.log(myTurn, "MY TURN")
-                    if(myTurn) {
-                        setNoNeedToDrawCard(true)
-                        console.log("NO NEED TO DRAW CARD")
-                    }
-                }
-
-                // actionStackRef.current = [...actionStackRef.current, message.card_id]
-                setActionsStack(prevState => [...prevState, message.card_id])
-            }
-
-            if(message.protocol === "ACTION_STACK_REMOVE") {
-                if (message.executeActionsBefore) {
-                    setActionsStack(prevState => {
-                        const new_array = [...prevState]
-                        new_array.splice(prevState.length-2, 1)
-                        return new_array
-                    })
-                } else {
-                    setActionsStack(prevState => {
-                        const new_array = [...prevState]
-                        new_array.pop()
-                        return new_array
-                    })
-                }
-                // SE A CARTA "TÔ FORA ESTIVER PRESENTE NA PILHA, IMPEDIR DE PUXAR CARTA DO BOLO, SE NÃO, PODE PUXAR"
-                if(actionsStack.includes(20) || actionsStack.includes(21)) {
-                    if(myTurn) {
-                        setNoNeedToDrawCard(true)
-                    }
-                } else {
-                    if(myTurn) {
-                        setNoNeedToDrawCard(false)
-                    }
-                }
-            }
-
             if(message.protocol === "CARD_ACTION") {
-                if(message.action === "BLOCK_ACTIONS"){ // Carta de bloquear outra ação foi executada
-                    const blocked_card = actionsStack[actionsStack.length-1]
-                    setActionsStack(prevState => {
-                        const new_array = [...prevState]
-                        new_array.pop()
-                        return new_array
-                    })
-
-                    // SE A CARTA BLOQUEADA FOI A DE "TÔ FORA"
-                    if(blocked_card === 20 || blocked_card === 21){
-                        console.log('SETTING NO NEED TO DRAW CARD TO FALSE')
-                        setNoNeedToDrawCard(false)
-                    }
-                }
-
                 if(message.action === "NEXT_3_CARDS") { // Carta de ver as próximas 3 cartas do baralho
                     const next_cards = message.cards.reverse()
                     alert(`As próximas 3 cartas são, nessa ordem:\n
@@ -227,29 +150,12 @@ function Game() {
                     ${getCard(next_cards[1]).name} (${getCard(next_cards[1]).description});\n
                     ${getCard(next_cards[2]).name};(${getCard(next_cards[1]).description})`)
                 }
-
-                if(message.action === "NO_NEED_TO_DRAW_CARD") { // Carta de não ser obrigado a puxar carta
-                    setNoNeedToDrawCard(true)
-                }
             }
 
             if(message.protocol === "OBSTACLE_ACTION") {
-                if(message.action === "CHANGE_PYRAMID") {
-                    const newPyramid = message.pyramid
-                    
-                    if(!newPyramid.length){
-                        alert("A pirâmide chegou no máximo de jogadores, portanto será dissolvida!")
-                        // pyramidPlayersRef.current = []
-                        setPyramidPlayers([])
-                    } else {
-                        setPyramidPlayers(message.pyramid)
-                    }
+                if(message.action === "DISSOLVE_PYRAMID") {
+                    alert("A pirâmide chegou no máximo de jogadores, portanto será dissolvida!")
                 }
-            }
-
-            if(message.protocol === "PYRAMID_DISSOLVE"){
-                // pyramidPlayersRef.current = []
-                setPyramidPlayers([])
             }
 
             if(message.protocol === "CARDS_OVER"){

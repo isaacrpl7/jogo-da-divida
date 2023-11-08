@@ -17,9 +17,8 @@ function Game() {
     const navigate = useNavigate()
 
     // Initial lobby room
-    const [roomUsers, setRoomUsers] = useState([])
     const [startButton, setStartButton] = useState(false)
-
+    
     // Player state
     const [myHand, setMyHand] = useState([])
     const [myTurn, setMyTurn] = useState(false)
@@ -29,8 +28,9 @@ function Game() {
     const [noNeedToDrawCard, setNoNeedToDrawCard] = useState(false)
     const [transferPyramidVisible, setTransferPyramidVisible] = useState(false)
     const [takenCard, setTakenCard] = useState(null)
-
+    
     // Room state
+    const [roomUsers, setRoomUsers] = useState([])
     const [gameBegun, setGameBegun] = useState(false)
     const alivePlayers = useRef([])
     const [whoTookCard, setWhoTookCard] = useState('')
@@ -77,18 +77,20 @@ function Game() {
                 alert(message.msg)
             }
 
-            if(message.protocol === "DELEGATE_START"){
-                console.log('ATIVANDO BOTAO DE START')
-                setStartButton(true)
+            if(message.protocol === "SET_ROOM_ADMIN"){
+                console.log(message.roomAdminName)
+                console.log(user.current)
+                if(message.roomAdminName === user.current){
+                    console.log('ATIVANDO BOTAO DE START')
+                    setStartButton(true)
+                }
             }
     
             if(message.protocol === 'USER_ENTERED') {
                 alivePlayers.current = message.users
-                setRoomUsers(message.users)
             }
             if(message.protocol === 'USER_LEFT') {
                 alivePlayers.current = message.users
-                setRoomUsers(message.users)
                 alert(`Usuário ${message.user_leaving} saiu!`)
             }
 
@@ -124,6 +126,9 @@ function Game() {
             }
             if(message.protocol === "SET_ALIVE_PLAYERS"){
                 alivePlayers.current = message.alivePlayers
+            }
+            if(message.protocol === "SET_ROOM_USERS"){
+                setRoomUsers(message.roomUsers)
             }
             if(message.protocol === "SET_WHO_TOOK_CARD"){
                 setWhoTookCard(message.whoTookCard)

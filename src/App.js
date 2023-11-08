@@ -1,4 +1,4 @@
-import { useRef, useState, createContext } from 'react';
+import { useRef, useState, createContext, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import './App.css';
 import SetUsername from './Pages/SetUsername';
@@ -30,8 +30,9 @@ function App() {
             }
         }
         connection.current.onopen = () => {
-            console.log('Connected!')
+            console.log('Connected!', params.roomId)
             if(params.roomId) {
+                console.log('Sending enter room!')
                 connection.current.send(JSON.stringify({protocol: 'ENTER_ROOM', room: params.roomId}))
             }
         }
@@ -50,8 +51,18 @@ function App() {
         }
     }
 
+    useEffect(() => {
+        // Se estiver entrando em uma sala, e o usuário/token já estiver configurado, ele conecta de vez sem mostrar caixinha de setar usuário
+        if(user.current && window.localStorage.user_token && params.roomId) {
+            setUserReady(true)
+            conectar()
+        }
+        // eslint-disable-next-line
+    }, [])
+
     return (
         <div className="App">
+            <button onClick={() => {connection.current.close()}}>Desconectar</button>
             {userReady ? 
                 (params.roomId ? 
                     <GameContext.Provider value={{

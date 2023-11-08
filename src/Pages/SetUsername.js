@@ -8,10 +8,14 @@ function SetUsername({user, conectar, setUserReady}) {
     }
     
     function click() {
-        window.localStorage.username = localUser
-        user.current = localUser
-        setUserReady(true)
-        conectar()
+        if(localUser){
+            window.localStorage.username = localUser
+            user.current = localUser
+            setUserReady(true)
+            conectar()
+        } else {
+            alert('Digite um nome!')
+        }
     }
     
     return (
